@@ -74,15 +74,15 @@
 
     <script>
         var x, xmlhttp, xmlDoc;
-        var editIndex = -1;
-        var currentPage = 1;
-        var rowsPerPage = 11;
+        var editIndex = -1; //used to track the index of the plant being edited; -1 means no plant is being edited
+        var currentPage = 1; //used to track the current page number for pagination
+        var rowsPerPage = 11; //used to define how many rows are displayed per page for pagination
 
-        xmlhttp = new XMLHttpRequest();
+        xmlhttp = new XMLHttpRequest(); //used to create a new XMLHttpRequest object for fetching the XML data
         xmlhttp.open("GET", "plant_catalog.xml", false);
         xmlhttp.send();
         xmlDoc = xmlhttp.responseXML; 
-        x = xmlDoc.getElementsByTagName("PLANT"); 
+        x = xmlDoc.getElementsByTagName("PLANT"); //used to get all the PLANT elements from the XML document and store them in the variable x
 
         var table = `
             <thead>
@@ -97,10 +97,10 @@
             </thead>
             <tbody id="table-body">
         `;
-        
+        // Loops through each PLANT element in the XML and creates a table row for it
         for (var i = 0; i < x.length; i++) { 
             table += "<tr class='border-b border-gray-200 hover:bg-gray-50 cursor-pointer transition' onclick='displayBookDetails(" + i + ")'>";
-            table += "<td class='py-3 px-4'>" + x[i].getElementsByTagName("COMMON")[0].childNodes[0].nodeValue + "</td>";
+            table += "<td class='py-3 px-4'>" + x[i].getElementsByTagName("COMMON")[0].childNodes[0].nodeValue + "</td>"; 
             table += "<td class='py-3 px-4'>" + x[i].getElementsByTagName("BOTANICAL")[0].childNodes[0].nodeValue + "</td>";
             table += "<td class='py-3 px-4'>" + x[i].getElementsByTagName("ZONE")[0].childNodes[0].nodeValue + "</td>";
             table += "<td class='py-3 px-4'>" + x[i].getElementsByTagName("LIGHT")[0].childNodes[0].nodeValue + "</td>";
@@ -151,7 +151,7 @@
             document.getElementById("plant_price").value = x[i].getElementsByTagName("PRICE")[0].childNodes[0].nodeValue;
             document.getElementById("plant_availability").value = x[i].getElementsByTagName("AVAILABILITY")[0].childNodes[0].nodeValue;
         };
-
+        // Submits the input values to either update an existing plant or add a new one
         submitInput = () => {
             var commonName = document.getElementById("plant_name").value;
             var botanicalName = document.getElementById("plant_scientific").value;
@@ -178,6 +178,7 @@
                 
                 editIndex = -1;
                 if (typeof showToast === "function") showToast("Plant details successfully updated.");
+
             } else {
                 var updateRow = "<tr class='border-b border-gray-200 hover:bg-gray-50 cursor-pointer transition' onclick='displayBookDetails(" + x.length + ")'>";
                 updateRow += "<td class='py-3 px-4'>" + commonName + "</td>";
@@ -197,7 +198,7 @@
             }
 
             updatePagination();
-
+            // Clear input fields after submission
             document.getElementById("plant_name").value = "";
             document.getElementById("plant_scientific").value = "";
             document.getElementById("plant_zone").value = "";
