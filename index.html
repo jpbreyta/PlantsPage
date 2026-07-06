@@ -141,7 +141,8 @@
 
         // Initialize pagination on load
         updatePagination();
-
+        
+        // Displays the details of the selected plant in the input fields for editing
         displayBookDetails = (i) => {
             editIndex = i;
             document.getElementById("plant_name").value = x[i].getElementsByTagName("COMMON")[0].childNodes[0].nodeValue;
