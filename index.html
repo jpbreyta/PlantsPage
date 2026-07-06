@@ -73,7 +73,7 @@
     </div>
 
     <script>
-        var x, xmlhttp, xmlDoc;
+        var x, xmlhttp, xmlDoc; //used to store the XML data and the XMLHttpRequest object
         var editIndex = -1; //used to track the index of the plant being edited; -1 means no plant is being edited
         var currentPage = 1; //used to track the current page number for pagination
         var rowsPerPage = 11; //used to define how many rows are displayed per page for pagination
@@ -141,7 +141,7 @@
 
         // Initialize pagination on load
         updatePagination();
-        
+
         // Displays the details of the selected plant in the input fields for editing
         displayBookDetails = (i) => {
             editIndex = i;
